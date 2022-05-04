@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'DiDiStoreApp/styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'DiDiStoreApp/styles/all.css' %}">
+    <title>DiDi | {{title}}</title>
+</head>
+<body>
+    <div class="container">
+        <header class="header_mini_nav">
+            <div class="mini_nav_wrapper">
+                <nav class="mini_navigation">
+                    <ul class="mini_nav_list">
+                        <li class="mini_nav_links"><a href="{% url 'home' %}">Главная</a></li>
+                        <li class="mini_nav_links"><a href="{% url 'account' %}">Мой профиль</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <article class="desired">
+            <div class="desired_wrapper">
+                <ul class="desired_list">
+                    {% for j in cart %}
+                         {% with book=j.book  %}
+                    <li>
+                        <div class="desired_book">
+                            <img width="100px" src="{{ book.photo.url }}" alt="book" class="desired_book_img">
+                            <p class="desired_book_title">{{ book.author }}| {{ book.name }}</p>
+                        </div>
+                        <div class="action_btn_counter">
+                            <span class="desired_book_counter">
+                                <a style="color:white;" href="{% url 'card_add' bookid=book.id %}"><button class="desired_counter_btn"> + </button></a>
+                                <p class="desired_counter_sum">{{ j.quantity }} | {{ book.price }}</p>
+                            </span>
+                            <a class="action_btns">
+                                <a href="{% url 'card_remove' bookid=book.id %}"><button class="desired_remove_btn">Удалить</button></a>
+                                <a href ="{% url 'order_create' %}" class="desired_buy_btn">Заказать</a>
+                            </span>
+                        </div>
+                    </li>
+                        {% endwith %}
+                    {% endfor %}
+                </ul>
+            </div>
+        </article>
+         <h2>Общий счет:{{ cart.get_total_price }} тенге</h2>
+    </div>
+    
+</body>
+</html>

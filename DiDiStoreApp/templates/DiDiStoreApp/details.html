@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'DiDiStoreApp/styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'DiDiStoreApp/styles/animation.css' %}">
+    <link rel="stylesheet" href="{% static 'DiDiStoreApp/styles/all.css' %}">
+    <link rel="stylesheet" href="{% static 'DiDiStoreApp/styles/responsives.css' %}">
+    
+    <title>DiDi | {{title}}</title>
+</head>
+<body>
+    <div class="container">
+        <article class="details">
+            <a href="{% url 'home' %}" class="close_btn details__link">Закрыть</a>
+            <div class="tags">
+                <div class="tags__item">
+                    <h4 class="tags__title">Издательство:</h4>
+                    <p class="tags__subtitle">{{ book.publisher}}</p>
+                </div>
+                <div class="tags__item">
+                    <h4 class="tags__title">Год издания:</h4>
+                    <p class="tags__subtitle">2015</p>
+                </div>
+                <div class="tags__item">
+                    <h4 class="tags__title">Автор:</h4>
+                    <p class="tags__subtitle">{{ book.author }}</p>
+                </div>
+                <div class="tags__item">
+                    <h4 class="tags__title">Язык:</h4>
+                    <p class="tags__subtitle">{{ book.lang }}</p>
+                </div>
+                <div class="tags__item">
+                    <h4 class="tags__title">Жанры:</h4>
+                    <p class="tags__subtitle">{{ book.category }} | {{ book.category.maincategory }}</p>
+                </div>
+            </div>
+            <div class="description">
+                <div class="description__item description__book-img">
+                    <img src="{{ book.photo.url }}" alt="book" class="description__img">
+                    <p class="description__subtitle">{{ book.name }}</p>
+                </div>
+                <div class="decription__item description__book-text">
+                    <h3 class="description__title">Описание книги</h3>
+                    <p class="description__text">
+                        {{ book.desc }}
+                    </p>
+                </div>
+            </div>
+            <div class="action-btns">
+                <div class="buy">
+                    <i class="fa-solid fa-bag-shopping action-btns__desired" title="добавить в желаемое"></i>
+                    <a href ="{% url 'card_add' book.id %}" class="action-btns__buy">В корзину</a>
+                </div>
+            </div>
+        </article>
+    </div>
+</body>
+</html>

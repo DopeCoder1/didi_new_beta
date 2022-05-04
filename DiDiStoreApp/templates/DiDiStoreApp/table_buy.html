@@ -1,0 +1,81 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Table 07</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="{% static 'DiDiStoreApp/table/css/style.css' %}">
+
+	</head>
+	<body style="background-color: #1C1919;">
+
+	<section class="ftco-section">
+
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">История покупок</h2>
+                    					<a style="color: white;" href="{% url 'home' %}"><h1 class="heading-section">На главную</h1></a>
+
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="table-wrap">
+
+						<table class="table table-bordered table-dark table-hover">
+						  <thead>
+						    <tr>
+                                <th>#</th>
+						      <th>ФИО</th>
+						      <th>Книга</th>
+						      <th>Дата заказа</th>
+						      <th>Количество</th>
+						      <th>Номер счёта</th>
+						      <th>Метод оплаты</th>
+						      <th>Цена</th>
+						      <th>Cтатус</th>
+						    </tr>
+						  </thead>
+                        {% for jv in orders_items %}
+						  <tbody>
+						    <tr>
+						      <td>{{ jv.id }}</td>
+						      <td>{{ profile.first_name }} {{ profile.last_name }}</td>
+						      <td>{{ jv.book }}</td>
+						      <td>{{ jv.order.created }}</td>
+						      <td>{{ jv.quantity }}</td>
+						      <td>{{ jv.order.bank_iin }}</td>
+						      <td>{{ jv.order.payment_method }}</td>
+						      <td>{{ jv.price }}</td>
+                                {% if jv.order.paid == True %}
+                                    <td>Подтверждено</td>
+                                    {% else %}
+                                       <td>Не Подтверждено</td>
+                                {% endif %}
+						    </tr>
+						  </tbody>
+			{% endfor %}
+						</table>
+
+                    </div>
+
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<script src="{% static 'DiDiStoreApp/table/js/jquery.min.js'%}"></script>
+  <script src="{% static 'DiDiStoreApp/table/js/popper.js'%}"></script>
+  <script src="{% static 'DiDiStoreApp/table/js/bootstrap.min.js'%}"></script>
+  <script src="{% static 'DiDiStoreApp/table/js/main.js'%}"></script>
+
+	</body>
+</html>

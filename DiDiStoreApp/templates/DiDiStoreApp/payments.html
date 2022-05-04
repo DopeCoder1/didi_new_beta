@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'DiDiStoreApp/styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'DiDiStoreApp/styles/all.css' %}">
+    <link rel="stylesheet" href="{% static 'DiDiStoreApp/styles/responsives.css' %}">
+    <title>DiDi | {{title}}</title>
+</head>
+<body>
+    <div class="container">
+        <header class="header_mini_nav">
+            <div class="mini_nav_wrapper">
+                <nav class="mini_navigation">
+                    <ul class="mini_nav_list">
+                        <li class="mini_nav_links"><a href="{% url 'home' %}">Главная</a></li>
+                        <li class="mini_nav_links"><a href="{% url 'account' %}">Личный кабинет</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <article class="payments">
+            <div class="payments__block">
+                <div class="payments__card">
+                    <div class="card">
+                        <div class="card__front card__block">
+                            <div class="front-side">
+                                <p class="front-side__logo">DiDi</p>
+                                <div class="front-side__info">
+                                   <img src="../../static/DiDiStoreApp/images/chip_mini.png" alt="chip" class="front-side__chip">
+                                   <p class="front-side__nums">{{ profile.bank_iin }}</p>
+                                   <span class="front-side__date">
+                                       <p class="front-side__date-text">VALID <br> THRU</p>
+                                       <p class="front-side__date-nums">{{ profile.cvv_iin }}</p>
+                                   </span>
+                                   <span class="front-side__footer">
+                                        <p class="front-side__footer-name">{{ profile.user.first_name }} {{ profile.user.last_name }}</p>
+                                        <img src="../../static/DiDiStoreApp/images/payment_sys_logo.png" alt="payment system" class="front-side__footer-logo">
+                                   </span>
+
+                                    
+                                </div>
+        
+                                
+                            </div>
+
+                        </div>
+                        <div class="card__back card__block">
+                            <div class="balck-line"></div>
+                            <div class="gray-line"><p>****</p></div>
+                        </div>
+                    </div>
+                </div>
+                <form action="" method="post" class="from payments__from">
+                    {% csrf_token %}
+                    <fieldset class="form__fieldset fieldset_check-block">
+                        <span class="form__check-block">
+                            <label for="pay" class="form__label">Метод Оплаты {{ form.payment_method }}</label>
+                        </span>
+                    </fieldset>
+                    <fieldset class="form__fieldset">
+                        {{ form.name }}
+                        {{ form.email }}
+                        {{ form.phone }}
+                        {{ form.address }}
+                        {{ form.iin }}
+                        {{ form.transaction_id }}
+                    </fieldset>
+                    <fieldset class="form__fieldset">
+
+                        <span class="form__back-code">
+                           {{ form.bank_iin }}
+                            {{ form.cvv_iin }}
+                        </span>
+                    </fieldset>
+                    <input type="submit" value="Оплатить" class="from__submit">
+                </form>
+            </div>
+            <div class="payments__info">
+                <h1 class="payments__title">Информация о покупке:</h1>
+                <div class="payments__info-block">
+                    {% for item in cart %}
+                    <p class="payments__subtitle">Название книги: {{ item.book }}</p>
+                    <p class="payments__subtitle">Количество: {{ item.quantity }}</p>
+                    <p class="payments__subtitle">Итоговая цена: {{ cart.get_total_price }}</p>
+                    <p class="payments__subtitle"><a href="#">Условаия возврата: 14 дней. Без повреждений.</a></p><br>
+                {% endfor %}
+                </div>
+                
+            </div>
+            
+           
+        </article>
+       
+    </div>
+  <script>
+      
+    let bankCard = document.querySelector('.card');
+    let rotateCard = document.querySelectorAll('.card__block').forEach((rotate)=>{
+        rotate.addEventListener('click', ()=>{
+            bankCard.classList.toggle('card_rotate');
+        })
+    })
+  </script>
+</body>
+</html>

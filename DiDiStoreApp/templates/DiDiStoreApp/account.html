@@ -1,0 +1,49 @@
+{% load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'DiDiStoreApp/styles/style.css' %}">
+    <link rel="stylesheet" href="{% static 'DiDiStoreApp/styles/all.css' %}">
+    <link rel="stylesheet" href="{% static 'DiDiStoreApp/styles/responsives.css' %}">
+    <title>DiDi | {{title}}</title>
+</head>
+<body>
+    <div class="container">
+        <header class="header_mini_nav">
+            <div class="mini_nav_wrapper">
+                <nav class="mini_navigation">
+                    <ul class="mini_nav_list">
+                        <li class="mini_nav_links"><a href="{% url 'home' %}">Главная</a></li>
+                        <li class="mini_nav_links"><a href="{% url 'card_details' %}">Желаемое</a></li>
+                        <li class="mini_nav_links"><a href="{% url 'exit' %}">Выйти</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <article class="user_account">
+            <div class="user_account_wrapper">
+                  <h1 align="center">Профиль</h1><br>
+                <div class="user">
+                    <div class="user_avatar">
+                        <img class="fa-solid fa-user avatar_icon" width="200px" src="{{ profile.photo.url }}">
+                        <p class="avatar_name">{{ user.first_name }} <br> {{ user.last_name }}</p>
+                    </div>
+                    <div class="user_info">
+                        <p>Почта: {{ user.email }}</p>
+                        <p>Логин: {{ user.username }}</p>
+                        <p>Кол-во заказов: {{ count_order_item }}</p>
+                        <a style="color: #b3d7ff;" href="{% url 'profile_report' %}"><p>Посмотреть историю заказов</p></a>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </article>
+    </div>
+    <script src="{% static 'DiDiStoreApp/js/animation.js' %}"></script>
+</body>
+</html>

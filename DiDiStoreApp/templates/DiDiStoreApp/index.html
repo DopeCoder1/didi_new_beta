@@ -1,0 +1,28 @@
+{% extends 'DiDiStoreApp/base.html' %}
+{% load static %}
+{% block main %}
+<article class="book_content">
+    <div class="book_contanet_wrapper">
+        <div class="book_section">
+            {% for j in books %}
+            <div class="book">
+                <div class="book_img_title">
+                    <img  height="260px" src="{{ j.photo.url }}"  alt="faiman" class="book_img">
+                    <p class="book_title">{{ j.name }}</p>
+                </div>
+                <div class="btn_price_rating">
+                    <a href = "{% url 'details' j.id %}" class="buy_btn" id ="show_modal_window">Купить</a>
+                    <div class="price_rating">
+                        <span class="price">
+                            <p>{{ j.price }} kzt</p>
+                            <a style="color: white;" href="{% url 'card_add' j.id %}"><i class="fa-solid fa-bag-shopping mini_bag" title="добавить в желаемое"></i></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</article>
+
+{% endblock %}
